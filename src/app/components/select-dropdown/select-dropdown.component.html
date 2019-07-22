@@ -1,0 +1,12 @@
+<!-- <select [(ngModel)] = "assignedUser" name="assignedUser" id="assignedUser" style = "border-style: none" class ="form-group">
+  <option *ngFor="let item of items" value={{item}}>
+      {{item}}
+  </option>
+</select> -->
+<div class="form-group">
+  <select [disabled]="disabled" class="form-control" [value] = "selected" [(ngModel)] = "selected" (change) = "select()" name="selected" id="selected" >
+    <option *ngFor="let item of items" value={{item}}>
+        {{item}}
+    </option>
+  </select>
+</div>

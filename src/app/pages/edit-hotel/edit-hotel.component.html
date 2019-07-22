@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="container col-md-6">
+      <div class="card card-container" style="margin-top: 100px;background-color: rgb(231, 231, 231); width: 300px;margin-left:30%">
+                <div class="panel-body">
+                  <div class="col-md-12 ">
+                    <div class="form-group">
+                      <label>Name  </label>
+                      <input [(ngModel)]="hotel.name" name="name" type="text" class="form-control input-sm">
+                    </div>
+                    </div>
+                      <div class="col-md-12 ">
+                        <div class="form-group">
+                          <label>City  </label>
+                          <input  [(ngModel)]="hotel.city" name="city" type="text" class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-md-12 ">
+                          <div class="form-group">
+                            <label>Image source</label>
+                            <input [(ngModel)]="hotel.imgSrc" name="src" type="text" class="form-control input-sm">
+                          </div>
+                        </div>
+                      <hr>
+                      <div class="col-md-12 ">
+                          <div class="form-group">
+                            <label>Capacity  </label>
+                            <input [(ngModel)] ="room.capacity" type="text" class="form-control input-sm">
+                            <label>Price per night </label>
+                            <input [(ngModel)] ="room.price" type="text" class="form-control input-sm">
+                            <label>Currency </label>
+                            <select-dropdown 
+                            [selected]="selectedCurrency"
+                            [items]= "currencies"
+                            (selectedEmitter) = "getCurrency($event)">
+                           </select-dropdown>
+                            <div class="row" style ="margin-left: 20%">
+                              <button class="btn"(click)="addRoom()">Add room</button>
+                            </div>
+                          </div>
+                        </div>
+                </div>
+                <div class="row" style ="margin-left: 70%">
+                  <button class="btn" (click)="editHotel()">Edit hotel</button>
+                </div>
+        </div>
+      </div>
+    <div class="container col-md-6">
+      <div class="card card-container" style="margin-top: 100px;background-color: rgb(231, 231, 231); width: 300px; margin-left:40%">
+        <div class="row" style="margin-right:15px;margin-left:15px">
+          <h2>
+            Hotel
+          </h2>
+        </div>
+        <img [src]="hotel.imgSrc" style="height: 200px; width: 200px;margin-left: 15%; margin-bottom:15px">
+        <div class="row" style="margin-right:15px;margin-left:15px">
+          <span>Name: </span>{{hotel.name}}
+        </div>
+        <div class="row" style="margin-right:15px;margin-left:15px">
+          <span>City: </span>{{hotel.city}}
+        </div>
+        <div class="row" style="margin-right:15px;margin-left:15px">
+            <h2>
+              Rooms:
+              <span *ngIf="hotel.rooms"> {{hotel.rooms.length}}</span>
+            </h2>
+          </div>
+
+        <div *ngFor="let roomItem of hotel.rooms; let i = index">
+            <hr>
+            <div>
+                <button (click)="deleteRoom(i)" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              <div class="row" style="margin-right:15px;margin-left:15px">
+                  <span>Capacity: </span>{{roomItem.capacity}}
+                </div>
+                <div class="row" style="margin-right:15px;margin-left:15px">
+                    <span>Price: </span>{{roomItem.price}}
+                  </div>
+                <div class="row" style="margin-right:15px;margin-left:15px">
+                      <span>Currency: </span>{{room.currency}}
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

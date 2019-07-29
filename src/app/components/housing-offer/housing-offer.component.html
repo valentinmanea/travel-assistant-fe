@@ -1,3 +1,29 @@
-<p>
-  housing-offer works!
-</p>
+<div class="container">
+  <div class="card card-container" style ="background-color: rgb(231, 231, 231); width: 300px;margin-left:30%; margin-top:70px;">
+    <div class="panel-body">
+              <h2>Start Date: </h2> 
+              <h4>{{housingOffer.startDate.day}}-{{housingOffer.startDate.month}}-{{housingOffer.startDate.year}}</h4>
+              <h2>End Date: </h2> 
+              <h4>{{housingOffer.endDate.day}}-{{housingOffer.endDate.month}}-{{housingOffer.endDate.year}}</h4>
+              <h2>Hotel name: </h2> 
+              <h4>{{housingOffer.hotel.name}}</h4>
+          <div *ngIf="housingOffer.availableRooms.length > 0">
+              <div class="form-group">
+                  <h2>Available rooms</h2>
+                <div *ngFor="let room of housingOffer.availableRooms;let i = index">
+                  <ol>
+                    <li>
+                  <span>
+                  Capacity:  {{room.capacity}}
+                </span>
+                <span>
+                  Price:  {{room.price}} {{room.currency}}
+                </span>
+                </li>
+                </ol>
+                </div>
+             </div>
+          </div>
+    </div>
+  </div>
+</div>

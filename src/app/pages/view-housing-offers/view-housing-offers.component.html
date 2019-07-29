@@ -1,3 +1,8 @@
-<p>
-  asdsadsa
-</p>
+<div class="container">
+  <div class="card card-container">
+    <div class="panel-body">
+      <div *ngFor="let housingOffer of housingOffers;let i = index">
+        <app-housing-offer [housingOffer] = "housingOffer"></app-housing-offer>
+      </div>
+    </div>
+</div>

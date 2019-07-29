@@ -1,3 +1,5 @@
+import { HousingOfferDto } from './../../model/HousingOfferDto';
+import { HousingOfferService } from './../../services/housing-offer.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-housing-offers.component.css']
 })
 export class ViewHousingOffersComponent implements OnInit {
-
-  constructor() { }
+  housingOffers:HousingOfferDto[] = [];
+  constructor(private housingOfferService:HousingOfferService) { }
 
   ngOnInit() {
+    this.housingOfferService.getAll().subscribe(response => this.housingOffers = response.body)
   }
 
 }

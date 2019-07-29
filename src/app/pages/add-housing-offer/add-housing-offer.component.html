@@ -7,12 +7,20 @@
                   <div class="form-group">
                     <div class="input-group">
                       <div class="col-md-10" style ="padding-left: 0px">
-                        <input (ngModelChange) = "onSelectedDateChange()" class="form-control" placeholder="yyyy-mm-dd"
-                              name="dp" [(ngModel)]="housingOffer.startDate" ngbDatepicker #d1="ngbDatepicker">
-                            </div>
+                        <input
+                         (ngModelChange) = "onSelectedDateChange()"
+                          class="form-control" 
+                          placeholder="yyyy-mm-dd"
+                          name="dp" 
+                          [(ngModel)]="housingOffer.startDate"
+                          ngbDatepicker #d1="ngbDatepicker">
+                        </div>
                       <div class="col-md-2" style ="padding-left: 0px">
                         <div class="input-group-append">
-                          <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">Show</button>
+                          <button class="btn btn-outline-secondary calendar"
+                           (click)="d1.toggle()"
+                           type="button">Show
+                          </button>
                        </div>
                       </div>
                     </div>
@@ -25,15 +33,23 @@
                       <div class="form-group">
                         <div class="input-group">
                           <div class="col-md-10" style ="padding-left: 0px">
-                            <input (ngModelChange)="onSelectedDateChange()"
-                                 class="form-control" placeholder="yyyy-mm-dd"
-                                  name="dp" [(ngModel)]="housingOffer.endDate"
-                                   ngbDatepicker #d2="ngbDatepicker" [markDisabled]="markDisabled">
+                            <input 
+                                (ngModelChange)="onSelectedDateChange()"
+                                class="form-control"
+                                placeholder="yyyy-mm-dd"
+                                name="dp" [(ngModel)]="housingOffer.endDate"
+                                ngbDatepicker #d2="ngbDatepicker"
+                                [markDisabled]="markDisabled"
+                                [disabled] = "!housingOffer.startDate">
                           </div>
                           <div class="col-md-2" style ="padding-left: 0px">
                             <div class="input-group-append">
-                              <button class="btn btn-outline-secondary calendar" 
-                              (click)="d2.toggle()" type="button">Show</button>
+                              <button 
+                              class="btn btn-outline-secondary calendar" 
+                              (click)="d2.toggle()"
+                              type="button"
+                              [disabled] = "!housingOffer.startDate">Show
+                            </button>
                            </div>
                           </div>
                         </div>
@@ -46,7 +62,8 @@
             <select-dropdown 
              [selected]="selectedHotelName"
              [items]= "hotelNames"
-             (selectedEmitter) = "getHotelName($event)">
+             (selectedEmitter) = "getHotelName($event)"
+             [disabled] = "!housingOffer.endDate">
             </select-dropdown>
          </div>
       </div>

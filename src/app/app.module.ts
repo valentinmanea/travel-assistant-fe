@@ -1,3 +1,4 @@
+import { HousingOfferComponent } from './components/housing-offer/housing-offer.component';
 import { HousingOfferService } from './services/housing-offer.service';
 import { HotelService } from './services/hotel.service';
 import { ViewHousingOffersComponent } from './pages/view-housing-offers/view-housing-offers.component';
@@ -8,7 +9,7 @@ import { PreviousRouteService } from './services/previous-route.service';
 import { AuthInterceptor } from './components/interceptors/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -51,7 +52,8 @@ import { SelectDropdownComponent } from './components/select-dropdown/select-dro
     AddHousingOfferComponent,
     ViewHousingOffersComponent,
     EditHotelComponent,
-    SelectDropdownComponent
+    SelectDropdownComponent,
+    HousingOfferComponent
   ],
   imports: [
     BrowserModule,HttpClientModule,
@@ -65,6 +67,7 @@ import { SelectDropdownComponent } from './components/select-dropdown/select-dro
   providers: [AuthService,AccountService, HousingOfferService, HttpClientModule,AuthGuard,PreviousRouteService, HotelService,
     {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true 
+    
   }],
   
   bootstrap: [AppComponent]

@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
     if(JSON.parse(window.localStorage.getItem("currentUser"))){
       this.role = JSON.parse(window.localStorage.getItem("currentUser")).role;
     }
-    this.currentUser = this.authService.currentUser;
+    this.currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
   }
   logOut() {
     this.router.navigate(['/login'])
@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit {
       .subscribe();
   }
   isAdministrator(){
-    console.log('role ? ', this.role)
     if(this.role){
       return this.role.name === 'ADMIN';
     }

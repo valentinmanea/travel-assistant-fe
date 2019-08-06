@@ -1,9 +1,7 @@
+import { AmadeusHotelService } from './services/amadeus-hotel.service';
 import { HousingOfferComponent } from './components/housing-offer/housing-offer.component';
 import { HousingOfferService } from './services/housing-offer.service';
 import { HotelService } from './services/hotel.service';
-import { ViewHousingOffersComponent } from './pages/view-housing-offers/view-housing-offers.component';
-import { AddHousingOfferComponent } from './pages/add-housing-offer/add-housing-offer.component';
-import { AddHotelComponent } from './pages/add-hotel/add-hotel.component';
 
 import { PreviousRouteService } from './services/previous-route.service';
 import { AuthInterceptor } from './components/interceptors/auth.interceptor';
@@ -29,10 +27,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { HttpModule } from '@angular/http';
-import { AdminMenuComponent } from './components/admin-menu/admin-menu.component';
 import { ViewHotelsComponent } from './pages/view-hotels/view-hotels.component';
-import { EditHotelComponent } from './pages/edit-hotel/edit-hotel.component';
 import { SelectDropdownComponent } from './components/select-dropdown/select-dropdown.component';
+import { AmadeusAuthService } from './services/amadeus-auth.service';
 
 @NgModule({
   declarations: [
@@ -46,12 +43,7 @@ import { SelectDropdownComponent } from './components/select-dropdown/select-dro
     NavbarComponent,
     RegisterConfirmationComponent,
     HomeComponent,
-    AdminMenuComponent,
     ViewHotelsComponent,
-    AddHotelComponent,
-    AddHousingOfferComponent,
-    ViewHousingOffersComponent,
-    EditHotelComponent,
     SelectDropdownComponent,
     HousingOfferComponent
   ],
@@ -65,6 +57,7 @@ import { SelectDropdownComponent } from './components/select-dropdown/select-dro
     FacebookModule.forRoot(),
   ],
   providers: [AuthService,AccountService, HousingOfferService, HttpClientModule,AuthGuard,PreviousRouteService, HotelService,
+    AmadeusAuthService,AmadeusHotelService,
     {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true 
     

@@ -6,7 +6,6 @@
     </ul>
     <ul class="nav navbar-nav navbar-right" style="cursor:pointer">
       <li><a *ngIf ="currentUser" [routerLink]="['/history']"><span class="glyphicon glyphicon-log-in"></span>History</a></li>
-      <li><a *ngIf ="isAdministrator()" [routerLink]="['/admin/add-hotel']"><span class="glyphicon glyphicon-log-in"></span>Administrator page</a></li>
       <li><a *ngIf ="!currentUser" [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
       <li><a *ngIf ="!currentUser" [routerLink]="['/register']"><span class="glyphicon glyphicon-registration-mark"></span>Register</a></li>
       <li><a *ngIf ="currentUser" (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>

@@ -1,3 +1,5 @@
+import { AmadeusAuthService } from './../../services/amadeus-auth.service';
+import { HotelService } from './../../services/hotel.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {User} from "../../model/model.user";
 import {AuthService} from "../../services/auth.service";
@@ -13,9 +15,11 @@ import * as toastr from 'toastr';
 export class LoginComponent implements OnInit {
   user: User=new User();
   errorMessage:string;
-  constructor(private authService :AuthService, private router: Router) { }
+  constructor(private authService :AuthService, private router: Router, private amadeusAuthService:AmadeusAuthService, private hotelService:HotelService) { }
 
   ngOnInit() {
+    let token = '';
+    this.amadeusAuthService.getToken().subscribe((response) => token = response.access_token);
   }
 
   login(){

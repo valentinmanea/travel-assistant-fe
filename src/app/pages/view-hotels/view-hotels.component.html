@@ -1,4 +1,9 @@
-<div *ngFor="let hotel of hotels; let i = index">
+<div *ngIf="!hotelFirstLevelDto" style="margin-top: 50px; margin-left:40%">
+  <h1>
+    Data is loading...
+  </h1>
+</div>
+<div *ngFor="let data of hotelFirstLevelDto?.data; let i = index">
   <div class="container">
     <div class="card card-container hotel" style="background-color: rgb(231, 231, 231);">
         <button (click)="deleteHotel(i)" type="button" class="close" aria-label="Close">
@@ -7,35 +12,122 @@
       <div style="margin-left:10%">
         <div class="row" style="margin-right: 40%;margin-left: 35%;">
           <h2>
-            Hotel
+            {{data.type | uppercase }} {{i+1}}
           </h2>
         </div>
         <div style="margin-right:20%;margin-left:26%">
             <div class="row">
-              <span><b>Name: </b></span>{{hotel.name}}
+              <span><b>Name: </b></span>{{data.hotel.name}}
             </div>
             <div class="row" >
-              <span><b>City: </b> </span>{{hotel.city}}
+              <span><b>Available: </b> </span>{{data.available}}
+            </div>
+            <div class="row" >
+                <span><b>Rating: </b> </span>
+                <span *ngFor="let rate of rating[i]">
+                    <span *ngIf="rate" class="fa fa-star checked"></span>
+                    <span *ngIf="!rate" class="fa fa-star"></span>
+                </span>
+            </div>
+            <div class="row" >
+                <span><b>Type: </b> </span>{{data.hotel.type}}
+            </div>
+            <div class="row" >
+                <span><b>Hotel id: </b> </span>{{data.hotel.hotelId}}
+            </div>
+            <div class="row" >
+              <h2><b>Address </b> </h2>
+            </div>
+            <div class="row">
+              <span><b>City Name: </b> </span>{{data.hotel.address.cityName}}
+            </div>
+            <div class="row">
+              <span><b>Postal Code: </b> </span>{{data.hotel.address.postalCode}}
+            </div>
+            <div class="row">
+              <span><b>Country Code: </b> </span>{{data.hotel.address.countryCode}}
+            </div>
+            <div class="row" >
+                <h2><b>Amenities </b> </h2>
+                <div *ngFor="let amenity of data.hotel.amenities">
+                  {{amenity}},
+                </div>
+            </div>
+            <div class="row" >
+              <span><b>Chain Code: </b> </span>{{data.hotel.chainCode}}
+            </div>
+            <div class="row" >
+                <span><b>City Code: </b> </span>{{data.hotel.cityCode}}
+            </div>
+            <div class="row" >
+                <h2><b>Contact </b> </h2>
+                <div class="row" >
+                    <span><b>Phone: </b> </span>{{data.hotel.contact.phone}}
+                </div>
+                <div class="row" >
+                    <span><b>Fax: </b> </span>{{data.hotel.contact.fax}}
+                </div>
+            </div>
+            <div *ngIf="data.hotel.description" class="row" >
+                <h2><b>Description </b> </h2>
+                <div class="row" >
+                    <span><b>Lang: </b> </span>{{data.hotel.description.lang}}
+                </div>
+                <div class="row" >
+                    <span><b>Text: </b> </span>{{data.hotel.description.text}}
+                </div>
             </div>
           </div>
-        <img (click)="navigateEditPage(i)" [src]="hotel.imgSrc" style="cursor:pointer;height: 200px; width: 200px;margin-left: 20%;">
         <div class="row" style="margin-right:15px;margin-left:15px">
             <h2>
-              <button class="btn btn-success" *ngIf="!pressed[i]"(click)="toggle(i)">Show Rooms</button>
-              <button class="btn btn-danger"*ngIf="pressed[i]"(click)="toggle(i)">Hide Rooms</button>
-
-              <span *ngIf="pressed[i] && hotel.rooms"> {{hotel.rooms.length}}</span>
+              <button class="btn btn-success" *ngIf="!showOffers[i]"(click)="toggle(i)">Show Offers</button>
+              <button class="btn btn-danger"*ngIf="showOffers[i]"(click)="toggle(i)">Hide Offers</button>
             </h2>
           </div>
-        <div *ngIf="pressed[i]">
-          <div *ngFor="let room of hotel.rooms">
+        <div *ngIf="showOffers[i]">
+          <div *ngFor="let offer of data.offers">
               <hr>
             <div class="row" style="margin-right:15px;margin-left:15px">
-              <span>Capacity: </span>{{room.capacity}} persoane
+              <span>Guests: </span>Adults: {{offer.guests.adults}}
             </div>
             <div class="row" style="margin-right:15px;margin-left:15px">
-              <span>Price: </span>{{room.price}} {{room.currency}}
+                <div class="row" >
+                    <span><b>Currency: </b> </span>{{offer.price.currency}}
+                </div>
+                <div class="row" >
+                    <span><b>Base: </b> </span>{{offer.price.base}}
+                </div>
+                <div class="row" >
+                    <span><b>Total: </b> </span>{{offer.price.total}}
+                </div>
             </div>
+            <div class="row" style="margin-right:15px;margin-left:15px">
+                <span>Room: </span>
+              </div>
+              <div class="row" style="margin-right:15px;margin-left:15px">
+                  <div class="row" >
+                      <span><b>Description: </b> </span>{{offer.room.description.text}}
+                  </div>
+                  <div class="row" >
+                      <span><b>Type: </b> </span>{{offer.room.type}}
+                  </div>
+                  <div class="row" >
+                      <div class="row" >
+                          <span><b>Type Estimated: </b> </span>
+                      </div>
+                      <div class="row" >
+                          <div class="row" >
+                            <span><b>Bed Type: </b> </span>{{offer.room.typeEstimated.bedType}}
+                          </div>
+                          <div class="row" >
+                            <span><b>Beds: </b> </span>{{offer.room.typeEstimated.beds}}
+                          </div>
+                          <div class="row" >
+                            <span><b>Category: </b> </span>{{offer.room.typeEstimated.category}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
       </div>

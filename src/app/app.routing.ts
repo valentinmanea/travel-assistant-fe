@@ -1,8 +1,4 @@
-import { EditHotelComponent } from './pages/edit-hotel/edit-hotel.component';
 import { ViewHotelsComponent } from './pages/view-hotels/view-hotels.component';
-import { AddHousingOfferComponent } from './pages/add-housing-offer/add-housing-offer.component';
-import { ViewHousingOffersComponent } from './pages/view-housing-offers/view-housing-offers.component';
-import { AddHotelComponent } from './pages/add-hotel/add-hotel.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guard/auth-guard.service';
@@ -20,12 +16,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'register-confirmation/:token', component: RegisterConfirmationComponent },
-  { path: 'admin/add-hotel', component: AddHotelComponent, canActivate: [AuthGuard]},
-  { path: 'admin/edit-hotel/:id', component: EditHotelComponent, canActivate: [AuthGuard]},
 
-  { path: 'admin/view-hotels', component: ViewHotelsComponent, canActivate: [AuthGuard]},
-  { path: 'admin/add-housing-offer', component: AddHousingOfferComponent, canActivate: [AuthGuard]},
-  { path: 'admin/view-housing-offers', component: ViewHousingOffersComponent, canActivate: [AuthGuard]},
+  { path: 'view-hotels', component: ViewHotelsComponent},
   { path: '**', redirectTo: '/login' }
 ];
 

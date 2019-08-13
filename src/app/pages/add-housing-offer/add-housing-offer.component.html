@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="card card-container" style="margin-top: 100px;background-color: rgb(231, 231, 231); width: 300px;margin-left:30%">
+      <div class="panel-body">
+          <div class="col-md-12">
+              <label>Start Date:</label>
+              <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="col-md-10" style ="padding-left: 0px">
+                        <input
+                         (ngModelChange) = "onSelectedDateChange()"
+                          class="form-control" 
+                          placeholder="yyyy-mm-dd"
+                          name="dp" 
+                          [(ngModel)]="housingOffer.startDate"
+                          ngbDatepicker #d1="ngbDatepicker">
+                        </div>
+                      <div class="col-md-2" style ="padding-left: 0px">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar"
+                           (click)="d1.toggle()"
+                           type="button">Show
+                          </button>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-12">
+                  <label>End Date:</label>
+                  <form class="form-inline">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="col-md-10" style ="padding-left: 0px">
+                            <input 
+                                (ngModelChange)="onSelectedDateChange()"
+                                class="form-control"
+                                placeholder="yyyy-mm-dd"
+                                name="dp" [(ngModel)]="housingOffer.endDate"
+                                ngbDatepicker #d2="ngbDatepicker"
+                                [markDisabled]="markDisabled"
+                                [disabled] = "!housingOffer.startDate">
+                          </div>
+                          <div class="col-md-2" style ="padding-left: 0px">
+                            <div class="input-group-append">
+                              <button 
+                              class="btn btn-outline-secondary calendar" 
+                              (click)="d2.toggle()"
+                              type="button"
+                              [disabled] = "!housingOffer.startDate">Show
+                            </button>
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+        <div class="col-md-12 ">
+          <div class="form-group">
+           <label>Hotel name  </label>
+            <select-dropdown 
+             [selected]="selectedHotelName"
+             [items]= "hotelNames"
+             (selectedEmitter) = "getHotelName($event)"
+             [disabled] = "!housingOffer.endDate">
+            </select-dropdown>
+         </div>
+      </div>
+      <div *ngIf="availableRooms.length > 0" class="col-md-12 ">
+          <div class="form-group">
+              <label>Available rooms</label>
+            <div *ngFor="let room of availableRooms;let i = index">
+              <ol>
+                <li>{{room}}</li>
+              </ol>
+            </div>
+         </div>
+      </div>
+      <div *ngIf="availableRooms.length == 0 && selectedHotelName" class="col-md-12 ">
+          <div class="form-group">
+              <label>There are no rooms available </label>
+         </div>
+      </div>
+      <button class="btn" style="float:right" (click)="addHousingOffer()">Add offer</button>
+    </div>
+  </div>
+</div>

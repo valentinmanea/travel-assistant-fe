@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
       .subscribe();
   }
   isAdministrator(){
+    console.log(this.role)
     if(this.role){
       return this.role.name === 'ADMIN';
     }

@@ -1,11 +1,10 @@
 .hotel{
     box-sizing: border-box; 
-    width: 500px;
     padding: 30px;  
     border: 2px solid black;
     margin-bottom: 10px;
     margin-top: 100px;
-    margin-left: 30%
+    margin-left: 10%
 }
 .btn{
     margin-left: 25%;

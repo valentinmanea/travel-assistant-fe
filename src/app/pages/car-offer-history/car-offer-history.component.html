@@ -1,0 +1,28 @@
+<table class="table table-dark" >
+    <thead>
+      <tr>
+        <th scope="col">Id Offer</th>
+        <th scope="col">startDate</th>
+        <th scope="col">endDate</th>
+        <th scope="col">price</th>
+        <th scope="col">model</th>
+        <th scope="col">spots</th>
+        <th scope="col">color</th>
+        <th scope="col">km</th>
+        <th scope="col">doors</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let carOffer of carOffers">
+        <td>{{carOffer.id}}</td>
+        <td>{{carOffer.startDate}}</td>
+        <td>{{carOffer.endDate}}</td>
+        <td>{{carOffer.price}} {{carOffer.currency}}</td>
+        <td>{{carOffer.car.model}}</td>
+        <td>{{carOffer.car.spots}}</td>
+        <td>{{carOffer.car.color}}</td>
+        <td>{{carOffer.car.km}}</td>
+        <td>{{carOffer.car.doors}}</td>
+      </tr>
+    </tbody>
+  </table>

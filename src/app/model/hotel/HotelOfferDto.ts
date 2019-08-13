@@ -1,11 +1,8 @@
 import { HotelPriceDto } from './HotelPriceDto';
 import { HotelGuestsDto } from './HotelGuestsDto';
-import { RoomDto } from "./RoomDto";
-
 export class HotelOfferDto{
-    id:string;
+    id:string;  
 	rateCode:string;
-    room:RoomDto;
-    guest:HotelGuestsDto;
+    guests:HotelGuestsDto;
     price:HotelPriceDto;
 }

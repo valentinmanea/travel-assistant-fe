@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="card card-container" style="background-color: rgb(231, 231, 231); width: 400px">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <label>Start Date:</label>
+                <form class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="col-md-10" style ="padding-left: 0px">
+                          <input
+                            class="form-control" 
+                            placeholder="yyyy-mm-dd"
+                            name="dp" 
+                            [(ngModel)]="selectedStartDate"
+                            [markDisabled] = "markDisabledStartDate"
+                            ngbDatepicker #d1="ngbDatepicker">
+                          </div>
+                        <div class="col-md-2" style ="padding-left: 0px">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar"
+                             (click)="d1.toggle()"
+                             type="button">Show
+                            </button>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-12">
+                    <label>End Date:</label>
+                    <form class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="col-md-10" style ="padding-left: 0px">
+                              <input 
+                                  class="form-control"
+                                  placeholder="yyyy-mm-dd"
+                                  name="dp"
+                                   [(ngModel)]="selectedEndDate"
+                                  ngbDatepicker #d2="ngbDatepicker"
+                                  [markDisabled]="markDisabledEndDate"
+                                  [disabled] = "!selectedStartDate">
+                            </div>
+                            <div class="col-md-2" style ="padding-left: 0px">
+                              <div class="input-group-append">
+                                <button 
+                                class="btn btn-outline-secondary calendar" 
+                                (click)="d2.toggle()"
+                                type="button"
+                                [disabled] = "!selectedStartDate">Show
+                              </button>
+                             </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                   
+          <div class="col-md-12 ">
+            <div class="form-group">
+             <label>City</label>
+              <select-dropdown 
+               [selected]="selectedCity"
+               [items]= "cityNames"
+               (selectedEmitter) = "getCityName($event)"
+               >
+              </select-dropdown>
+           </div>
+        </div>
+      </div>
+      <button class="btn btn-dark" (click) ="searchCarOffer()">Search</button>
+    </div>
+  </div>
+
+
+  
+
+<div class="container" style="margin-left: 15%">
+    <div class="card card-container" style="margin-top: 100px;background-color: rgb(231, 231, 231); width: 90%;margin-left:5%">
+      
+      <div class="panel-body" *ngFor="let carOfferDto of carOfferDtos;let index = index" style="color:white;background-color: rgb(22, 19, 19);">
+          <div class="col-md-12 flight">
+              <span style="margin-left: 40%;font-size: 20px;" class="row"><b>Offer Number: </b> 
+                {{index+1}}
+              </span>
+              <span class="row"><b>StartDate: </b> </span>{{carOfferDto.startDate}}
+              <span class="row"><b>EndDate: </b> </span>{{carOfferDto.endDate}}
+              <span class="row"><b>City: </b> </span>{{carOfferDto.city}}
+              <span class="row"><b>Price: </b> </span>{{carOfferDto.price}}{{carOfferDto.currency}}
+              <span class="row"><b>Car model: </b> </span>{{carOfferDto.car.model}}
+              <span class="row"><b>Car spots: </b> </span>{{carOfferDto.car.spots}}
+              <span class="row"><b>Car color: </b> </span>{{carOfferDto.car.color}}
+              <span class="row"><b>Car kilometers: </b> </span>{{carOfferDto.car.km}}
+              <span class="row"><b>Car doors: </b> </span>{{carOfferDto.car.doors}}
+
+              <button *ngIf="isUserLoggedIn()" class="btn btn-success" (click) = "buyOffer(index)">Buy offer</button>
+              <button  *ngIf="!isUserLoggedIn()" class="btn btn-danger" [routerLink]="['/login']">Login for buying offers</button>
+
+          </div>
+      </div>
+    </div>
+  </div>

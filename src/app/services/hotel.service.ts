@@ -2,16 +2,21 @@ import { RequestOptions } from '@angular/http';
 import { HttpHeaders, HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RoomDto } from '../model/hotel/RoomDto';
+import { HotelOffer } from '../model/hotel/HotelOffer';
 
 @Injectable()
 export class HotelService {
-  // endpoint = 'http://localhost:8080/hotel/'
+  endpoint = 'http://localhost:8080/hotel-offer/'
   // testEndPoint = 'https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&maxPrice=200';
   // sessionStorage = window.sessionStorage;
-  // constructor(private http: HttpClient, ) { }
+  constructor(private http: HttpClient, ) { }
 
-
+  buyOffer(hotelOffer:HotelOffer){
+    return this.http.post<HotelOffer>(this.endpoint + 'buy', hotelOffer, { observe: 'response' });
+  }
+  getBoughtOffers(){
+    return this.http.get<HotelOffer>(this.endpoint + 'all', { observe: 'response' });
+  }
 
   // testEndpoint(token): Observable<any> {
   //   let httpOptions = {

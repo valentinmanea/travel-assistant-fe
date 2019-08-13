@@ -1,0 +1,143 @@
+<div class="container">
+    <div class="card card-container" style="background-color: rgb(231, 231, 231); width: 400px">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <label>Start Date:</label>
+                <form class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="col-md-10" style ="padding-left: 0px">
+                          <input
+                           (ngModelChange) = "onSelectedDateChange()"
+                            class="form-control" 
+                            placeholder="yyyy-mm-dd"
+                            name="dp" 
+                            [(ngModel)]="startDate"
+                            [markDisabled] = "markDisabledStartDate"
+                            ngbDatepicker #d1="ngbDatepicker">
+                          </div>
+                        <div class="col-md-2" style ="padding-left: 0px">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar"
+                             (click)="d1.toggle()"
+                             type="button">Show
+                            </button>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-12">
+                    <label>End Date:</label>
+                    <form class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="col-md-10" style ="padding-left: 0px">
+                              <input 
+                                  (ngModelChange)="onSelectedDateChange()"
+                                  class="form-control"
+                                  placeholder="yyyy-mm-dd"
+                                  name="dp" [(ngModel)]="endDate"
+                                  ngbDatepicker #d2="ngbDatepicker"
+                                  [(ngModel)]="endDate"
+                                  [markDisabled]="markDisabledEndDate"
+                                  [disabled] = "!startDate">
+                            </div>
+                            <div class="col-md-2" style ="padding-left: 0px">
+                              <div class="input-group-append">
+                                <button 
+                                class="btn btn-outline-secondary calendar" 
+                                (click)="d2.toggle()"
+                                type="button"
+                                [disabled] = "!startDate">Show
+                              </button>
+                             </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+          <div class="col-md-12 ">
+            <div class="form-group">
+             <label>Start City</label>
+              <select-dropdown 
+               [selected]="selectedCityNameStart"
+               [items]= "cityNames"
+               (selectedEmitter) = "getCityNameStart($event)"
+               [disabled] = "!endDate">
+              </select-dropdown>
+           </div>
+        </div>
+        <div class="col-md-12 ">
+            <div class="form-group">
+             <label>Destination city</label>
+              <select-dropdown 
+              [disabled] = "!selectedCityNameStart"
+               [selected]="selectedCityNameEnd"
+               [items]= "cityNames"
+               (selectedEmitter) = "getCityNameEnd($event)">
+              </select-dropdown>
+           </div>
+        </div>
+        <div class="col-md-12 ">
+            <div class="form-group">
+             <label>Adults </label>
+              <input [disabled] = "!selectedCityNameEnd" type="number" class="form-control" id="adults" name="adults" [(ngModel)] = "adults" placeholder="Number of adults">
+           </div>
+        </div>
+      </div>
+      <button class="btn btn-dark" (click) ="searchFlights()">Search</button>
+    </div>
+    <div>
+      <h1>
+        Flights Search
+      </h1>
+    </div>
+  </div>
+
+
+
+
+<div class="container" style="margin-left: 15%">
+  <div class="card card-container" style="margin-top: 100px;background-color: rgb(231, 231, 231); width: 90%;margin-left:5%">
+    <div *ngIf="loading">
+      {{message}}
+    </div>
+    <div *ngIf="searchFinished">
+        {{resultedMessage}}
+    </div>
+    <div class="panel-body" *ngFor="let flightDto of firstLevelFlightDto?.data;let index = index" style="color:white;background-color: rgb(22, 19, 19);">
+        <div class="col-md-12 flight">
+            <span style="margin-left: 40%;font-size: 20px;" class="row"><b>Offer Number: </b> 
+              {{index+1}}
+            </span>
+            <span class="row"><b>Offer Type: </b> </span>{{flightDto.type}}
+            <span class="row"><b>Instant Ticketing Required: </b> </span>{{flightDto.instantTicketingRequired}}
+            <span class="row"><b>Last Ticketing Date: </b> </span>{{flightDto.lastTicketingDate}}
+            <span class="row"><b>Non Homogeneous Type: </b> </span>{{flightDto.nonHomogeneous}}
+            <span class="row"><b>NumberOfBookableSeats: </b> </span>{{flightDto.numberOfBookableSeats}}
+            <span class="row"><b>Price: </b> </span>{{flightDto.price.total}} {{flightDto.price.currency}}
+            <span class="row"><b>Source: </b> </span>{{flightDto.source}}
+            <div *ngFor="let travelerPricing of flightDto.travelerPricings">
+                <h1>Traveler Pricings</h1>
+                <span class="row"><b>Fare Option: </b> </span>{{travelerPricing.fareOption}}
+                <span class="row"><b>Price: </b> </span>{{travelerPricing.price.total}} {{travelerPricing.price.currency}}
+                <span class="row"><b>Traveler Id: </b> </span>{{travelerPricing.travelerId}}
+                <span class="row"><b>Traveler Type: </b> </span>{{travelerPricing.travelerType}}
+                <div *ngFor="let fareDetail of travelerPricing.fareDetailsBySegment">
+                  <h2>Fare details by Segment</h2>
+                    <span class="row"><b>Cabin: </b> </span>{{fareDetail.cabin}}
+                    <span class="row"><b>Class: </b> </span>{{fareDetail.class}}
+                    <span class="row"><b>Fare Basis: </b> </span>{{fareDetail.fareBasis}}
+                    <span class="row"><b>Cabin: </b> </span>{{fareDetail.cabin}}
+                    <span class="row"><b>Segment id: </b> </span>{{fareDetail.segmentId}}
+                  <hr>
+                  </div>
+                <hr>
+            </div>
+            <button class="btn btn-success" (click) = "buyOffer(index)">Buy offer</button>
+        </div>
+    </div>
+  </div>
+</div>

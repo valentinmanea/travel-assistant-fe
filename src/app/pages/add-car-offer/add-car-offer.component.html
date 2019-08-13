@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="card card-container" style="background-color: rgb(231, 231, 231); width: 400px">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <label>Start Date:</label>
+                <form class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="col-md-10" style ="padding-left: 0px">
+                          <input
+                            class="form-control" 
+                            placeholder="yyyy-mm-dd"
+                            name="dp" 
+                            [(ngModel)]="carOffer.startDate"
+                            [markDisabled] = "markDisabledStartDate"
+                            ngbDatepicker #d1="ngbDatepicker">
+                          </div>
+                        <div class="col-md-2" style ="padding-left: 0px">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar"
+                             (click)="d1.toggle()"
+                             type="button">Show
+                            </button>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-12">
+                    <label>End Date:</label>
+                    <form class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <div class="col-md-10" style ="padding-left: 0px">
+                              <input 
+                                  class="form-control"
+                                  placeholder="yyyy-mm-dd"
+                                  name="dp"
+                                   [(ngModel)]="carOffer.endDate"
+                                  ngbDatepicker #d2="ngbDatepicker"
+                                  [markDisabled]="markDisabledEndDate"
+                                  [disabled] = "!carOffer.startDate">
+                            </div>
+                            <div class="col-md-2" style ="padding-left: 0px">
+                              <div class="input-group-append">
+                                <button 
+                                class="btn btn-outline-secondary calendar" 
+                                (click)="d2.toggle()"
+                                type="button"
+                                [disabled] = "!carOffer.startDate">Show
+                              </button>
+                             </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                         <label>Model </label>
+                          <input class="form-control" id="model" name="model" [(ngModel)] = "carOffer.car.model" placeholder="model">
+                       </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                         <label>Spots </label>
+                          <input type="number" class="form-control" id="spots" name="spots" [(ngModel)] = "carOffer.car.spots" placeholder="spots">
+                       </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                         <label>Color </label>
+                          <input class="form-control" id="color" name="color" [(ngModel)] = "carOffer.car.color" placeholder="color">
+                       </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                         <label>Km </label>
+                          <input class="form-control" id="km" name="km" [(ngModel)] = "carOffer.car.km" placeholder="km">
+                       </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                         <label>Doors </label>
+                          <input type="number" class="form-control" id="doors" name="doors" [(ngModel)] = "carOffer.car.doors" placeholder="doors">
+                       </div>
+                    </div>
+          <div class="col-md-12 ">
+            <div class="form-group">
+             <label>City</label>
+              <select-dropdown 
+               [selected]="carOffer.city"
+               [items]= "cityNames"
+               (selectedEmitter) = "getCityName($event)"
+               >
+              </select-dropdown>
+           </div>
+        </div>
+        <div class="col-md-12 ">
+            <div class="form-group">
+             <label>Price </label>
+              <input type="number" class="form-control" id="price" name="price" [(ngModel)] = "carOffer.price" placeholder="Price">
+           </div>
+        </div>
+        <div class="col-md-12 ">
+            <div class="form-group">
+             <label>Currency</label>
+              <select-dropdown 
+               [selected]="selectedCurrency"
+               [items]= "currencies"
+               (selectedEmitter) = "getCurrency($event)"
+               >
+              </select-dropdown>
+           </div>
+        </div>
+      </div>
+      <button class="btn btn-dark" (click) ="addCarOffer()">Add car offer</button>
+    </div>
+  </div>

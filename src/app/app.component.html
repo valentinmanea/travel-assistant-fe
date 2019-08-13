@@ -1,5 +1,16 @@
 <app-navbar *ngIf="showMenuAndNavBar()"></app-navbar>
 <app-menu *ngIf="showMenuAndNavBar()"></app-menu>
+<div *ngIf ="isLoggedUser()" class="dropdown" style="float:right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Istoric cumparaturi
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item btn btn-secondary" type="button" [routerLink] = "['history/full-offer']">Oferta Completa</button>
+          <button class="dropdown-item btn btn-secondary" type="button" [routerLink] = "['history/housing']">Cazare</button>
+          <button class="dropdown-item btn btn-secondary" type="button" [routerLink] = "['history/flights']">Zboruri</button>
+          <button class="dropdown-item btn btn-secondary" type="button" [routerLink] = "['history/car-rental']">Inchirieri masini</button>
+        </div>
+      </div>
 <router-outlet></router-outlet>
 
 

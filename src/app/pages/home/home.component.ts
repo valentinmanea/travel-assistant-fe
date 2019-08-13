@@ -14,15 +14,4 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  warning(){
-    toastr.warning('Pentru a accesa aceasta pagina, te rugam sa te autentifici')
-    toastr.info('Pentru a accesa aceasta pagina, te rugam sa te autentifici')
-    toastr.error('Pentru a accesa aceasta pagina, te rugam sa te autentifici')
-
-
-  }
-  profile(){
-    this.router.navigate(['/profile'])
-  }
 }

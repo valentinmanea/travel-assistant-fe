@@ -1,6 +1,16 @@
+
+<div class="row" style="margin-left:30%">
+    <div class="example col-md-6">
+        <input [(ngModel)]="cityName" class="form-control input-lg" type="text" placeholder="Search by city name">
+    </div>
+    <div class="example col-md-6">
+      <button class="btn btn-dark btn-rounded" [disabled] ="searchButtonDisabled()" (click)= "searchForHotelsByCityName()" type="submit"><i class="fa fa-search"></i>Cauta</button>
+    </div>  
+  </div>
+
 <div *ngIf="!hotelFirstLevelDto" style="margin-top: 50px; margin-left:40%">
   <h1>
-    Data is loading...
+    {{message}}
   </h1>
 </div>
 <div *ngFor="let data of hotelFirstLevelDto?.data; let i = index">
@@ -10,12 +20,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       <div style="margin-left:10%">
-        <div class="row" style="margin-right: 40%;margin-left: 35%;">
+        <div class="row">
           <h2>
             {{data.type | uppercase }} {{i+1}}
           </h2>
         </div>
-        <div style="margin-right:20%;margin-left:26%">
+        <div style="margin-right:20%">
             <div class="row">
               <span><b>Name: </b></span>{{data.hotel.name}}
             </div>
@@ -49,9 +59,9 @@
             </div>
             <div class="row" >
                 <h2><b>Amenities </b> </h2>
-                <div *ngFor="let amenity of data.hotel.amenities">
-                  {{amenity}},
-                </div>
+                <span *ngFor="let amenity of data.hotel.amenities">
+                  {{amenity}}, 
+                </span>
             </div>
             <div class="row" >
               <span><b>Chain Code: </b> </span>{{data.hotel.chainCode}}
@@ -59,26 +69,24 @@
             <div class="row" >
                 <span><b>City Code: </b> </span>{{data.hotel.cityCode}}
             </div>
-            <div class="row" >
-                <h2><b>Contact </b> </h2>
+                <div class="row" >
+                    <b>Contact </b>
+                </div>
                 <div class="row" >
                     <span><b>Phone: </b> </span>{{data.hotel.contact.phone}}
                 </div>
                 <div class="row" >
                     <span><b>Fax: </b> </span>{{data.hotel.contact.fax}}
                 </div>
-            </div>
             <div *ngIf="data.hotel.description" class="row" >
-                <h2><b>Description </b> </h2>
-                <div class="row" >
+                <b>Description </b>
+                  <br>
                     <span><b>Lang: </b> </span>{{data.hotel.description.lang}}
-                </div>
-                <div class="row" >
+                    <br>
                     <span><b>Text: </b> </span>{{data.hotel.description.text}}
-                </div>
             </div>
           </div>
-        <div class="row" style="margin-right:15px;margin-left:15px">
+        <div class="row" style="margin-right:15px">
             <h2>
               <button class="btn btn-success" *ngIf="!showOffers[i]"(click)="toggle(i)">Show Offers</button>
               <button class="btn btn-danger"*ngIf="showOffers[i]"(click)="toggle(i)">Hide Offers</button>
@@ -86,36 +94,34 @@
           </div>
         <div *ngIf="showOffers[i]">
           <div *ngFor="let offer of data.offers">
+            <button class="btn btn-success" *ngIf="isUserLoggedIn()" (click)="buyOffer(i)">Buy offer</button>
+            <button class="btn btn-danger" *ngIf="!isUserLoggedIn()" [routerLink] = "['/login']">Login for buying offers</button>
+
               <hr>
-            <div class="row" style="margin-right:15px;margin-left:15px">
+            <div class="row" style="margin-right:15px;">
               <span>Guests: </span>Adults: {{offer.guests.adults}}
             </div>
-            <div class="row" style="margin-right:15px;margin-left:15px">
+            <div style="margin-right:15px;">
                 <div class="row" >
                     <span><b>Currency: </b> </span>{{offer.price.currency}}
-                </div>
-                <div class="row" >
-                    <span><b>Base: </b> </span>{{offer.price.base}}
                 </div>
                 <div class="row" >
                     <span><b>Total: </b> </span>{{offer.price.total}}
                 </div>
             </div>
-            <div class="row" style="margin-right:15px;margin-left:15px">
+            <div class="row" style="margin-right:15px;">
                 <span>Room: </span>
               </div>
-              <div class="row" style="margin-right:15px;margin-left:15px">
+              <div  style="margin-right:15px;">
                   <div class="row" >
                       <span><b>Description: </b> </span>{{offer.room.description.text}}
                   </div>
                   <div class="row" >
                       <span><b>Type: </b> </span>{{offer.room.type}}
                   </div>
-                  <div class="row" >
                       <div class="row" >
                           <span><b>Type Estimated: </b> </span>
                       </div>
-                      <div class="row" >
                           <div class="row" >
                             <span><b>Bed Type: </b> </span>{{offer.room.typeEstimated.bedType}}
                           </div>
@@ -125,8 +131,6 @@
                           <div class="row" >
                             <span><b>Category: </b> </span>{{offer.room.typeEstimated.category}}
                           </div>
-                      </div>
-                  </div>
               </div>
           </div>
         </div>

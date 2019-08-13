@@ -25,4 +25,7 @@ export class AppComponent {
     this.elementRef.nativeElement.ownerDocument.body.style.height = '100%';
 
   }
+  isLoggedUser():boolean{
+    return window.localStorage.getItem('currentUser') != undefined;
+  }
 }

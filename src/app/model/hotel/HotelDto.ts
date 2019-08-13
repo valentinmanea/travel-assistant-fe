@@ -1,7 +1,5 @@
-import { RoomDto } from "./RoomDto";
-
 export class HotelDto {
-	id;
+	hotelId;
 	wikiDataId;
 	 type;
 	 city;

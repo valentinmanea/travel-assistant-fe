@@ -1,0 +1,20 @@
+<table class="table table-dark" >
+    <thead>
+      <tr>
+        <th scope="col">Id Offer</th>
+        <th scope="col">Last Ticketing Date</th>
+        <th scope="col">Booking date</th>
+        <th scope="col">Price</th>
+        <th scope="col">Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flightOffer of flightOffers">
+        <td>{{flightOffer.id}}</td>
+        <td>{{flightOffer.lastTicketingDate}}</td>
+        <td>{{flightOffer.createdDate}}</td>
+        <td>{{flightOffer.price}}</td>
+        <td>{{flightOffer.source}}</td>
+      </tr>
+    </tbody>
+  </table>

@@ -1,4 +1,4 @@
-export class HotelPriceDto{
+export class FlightPriceDto{
     currency:string;
 	total:string;
 }

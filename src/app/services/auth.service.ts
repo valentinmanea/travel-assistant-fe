@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(public http: HttpClient, private router:Router) { }
   currentUser:User;
+
+  public isUserLoggedIn():boolean{
+    return window.localStorage.getItem('currentUser') != undefined;
+  }
   public logIn(user: User){
     console.log('user',user)
     var base64Credential: string = btoa( user.username+ ':' + user.password);

@@ -1,0 +1,15 @@
+.nav-bar{
+    font-size: 15px;
+}
+a{
+    color:white !important;
+    font-size: 15px !important;
+}
+a:hover {
+    color:#ffffff !important;
+    text-decoration : none;
+    }
+.navbar-nav{
+        -webkit-box-orient: horizontal !important;
+        margin-right:10px;
+}

@@ -1,3 +1,6 @@
+import { CarOfferService } from './services/car-offer.service';
+import { FlightOfferService } from './services/flight-offer.service';
+import { FlightService } from './services/flight.service';
 import { AmadeusHotelService } from './services/amadeus-hotel.service';
 import { HousingOfferComponent } from './components/housing-offer/housing-offer.component';
 import { HousingOfferService } from './services/housing-offer.service';
@@ -24,12 +27,18 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterConfirmationComponent } from './pages/register-confirmation/register-confirmation.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { SearchComponent } from './components/search/search.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { HttpModule } from '@angular/http';
 import { ViewHotelsComponent } from './pages/view-hotels/view-hotels.component';
 import { SelectDropdownComponent } from './components/select-dropdown/select-dropdown.component';
 import { AmadeusAuthService } from './services/amadeus-auth.service';
+import { HistoryHotelComponent } from './pages/history-hotel/history-hotel.component';
+import { ViewFlightsComponent } from './pages/view-flights/view-flights.component';
+import { FlightHistoryComponent } from './pages/flight-history/flight-history.component';
+import { AddCarOfferComponent } from './pages/add-car-offer/add-car-offer.component';
+import { CurrencyService } from './services/currency.service';
+import { ViewCarOffersComponent } from './pages/view-car-offers/view-car-offers.component';
+import { CarOfferHistoryComponent } from './pages/car-offer-history/car-offer-history.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +46,6 @@ import { AmadeusAuthService } from './services/amadeus-auth.service';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    SearchComponent,
     HistoryComponent,
     MenuComponent,
     NavbarComponent,
@@ -45,7 +53,13 @@ import { AmadeusAuthService } from './services/amadeus-auth.service';
     HomeComponent,
     ViewHotelsComponent,
     SelectDropdownComponent,
-    HousingOfferComponent
+    HousingOfferComponent,
+    HistoryHotelComponent,
+    ViewFlightsComponent,
+    FlightHistoryComponent,
+    AddCarOfferComponent,
+    ViewCarOffersComponent,
+    CarOfferHistoryComponent
   ],
   imports: [
     BrowserModule,HttpClientModule,
@@ -57,7 +71,7 @@ import { AmadeusAuthService } from './services/amadeus-auth.service';
     FacebookModule.forRoot(),
   ],
   providers: [AuthService,AccountService, HousingOfferService, HttpClientModule,AuthGuard,PreviousRouteService, HotelService,
-    AmadeusAuthService,AmadeusHotelService,
+    AmadeusAuthService,AmadeusHotelService, FlightService, FlightOfferService, CurrencyService, CarOfferService,
     {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true 
     

@@ -5,10 +5,21 @@ import { Injectable } from '@angular/core';
 export class AuthInterceptor implements HttpInterceptor {
     storage = window.localStorage;
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const copiedRequest = request.clone({headers: request.headers.set('Authorization', 'Basic ' + this.storage.getItem("auth"))});
-        if(this.storage.getItem("auth")){
-            return next.handle(copiedRequest);
+        let authorizationHeader = request.headers.get("Authorization");
+        if(authorizationHeader){
+            if(authorizationHeader.indexOf('Basic') > -1){
+                const copiedRequest = request.clone({headers: request.headers.set('Authorization', 'Basic ' + this.storage.getItem("auth"))});
+                if(this.storage.getItem("auth")){
+                    return next.handle(copiedRequest);
+                }
+            }
+        }else{
+            const copiedRequest = request.clone({headers: request.headers.set('Authorization', 'Basic ' + this.storage.getItem("auth"))});
+            if(this.storage.getItem("auth")){
+                return next.handle(copiedRequest);
+            }
         }
+       
         return next.handle(request);
     }
 }

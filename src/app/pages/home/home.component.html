@@ -1,0 +1,143 @@
+<div class="panel-body">
+        <div class="col-md-6">
+                <div class="form-group">
+                <label>Destination City</label>
+                  <select-dropdown 
+                   [selected]="keyword"
+                   [items]= "cityNames"
+                   (selectedEmitter) = "getKeyword($event)"
+                   >
+                  </select-dropdown>
+               </div>
+            </div>
+            <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Start City</label>
+                      <select-dropdown 
+                       [selected]="startCity"
+                       [items]= "cityNames"
+                       (selectedEmitter) = "getStartCity($event)"
+                       >
+                      </select-dropdown>
+                   </div>
+            </div>
+    <div class="example col-md-6">
+        <button class="btn btn-dark btn-rounded" [disabled] ="!keyword" (click)= "getImageByKeyword()" type="submit"><i class="fa fa-search"></i>Generate</button>
+    </div>
+</div>
+
+<div style="margin-left:50px;" class="row" *ngIf="displayGenerateMessage()">
+    Search for full offer
+    <button (click)="generateFullOffer()" class="btn btn-success">Generate full offer</button>
+</div>
+<div style="margin-left: 10%" *ngFor="let item of items">
+    <div style="margin-bottom: 10px" class="row">
+        <img src="{{item}}">
+    </div>
+</div>
+
+<div *ngIf="fullOfferDto.hotelSecondLevelDto" class="container">
+  <div class="card card-container hotel" style="background-color: rgb(231, 231, 231);">
+            <div style="margin-left:10%">
+              <div class="row">
+                <h2>
+                  {{fullOfferDto.hotelSecondLevelDto.type | uppercase }}
+                </h2>
+              </div>
+              <div style="margin-right:20%">
+                  <div class="row">
+                    <span><b>Name: </b></span>{{fullOfferDto.hotelSecondLevelDto.hotel.name}}
+                  </div>
+                  <div class="row" >
+                    <span><b>Available: </b> </span>{{fullOfferDto.hotelSecondLevelDto.available}}
+                  </div>
+                  <div class="row" >
+                      <span><b>Rating: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.rating}}
+                  </div>
+                  <div class="row" >
+                      <span><b>Type: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.type}}
+                  </div>
+                  <div class="row" >
+                      <span><b>Hotel id: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.hotelId}}
+                  </div>
+                  <div class="row" >
+                    <h2><b>Address </b> </h2>
+                  </div>
+                  <div class="row">
+                    <span><b>City Name: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.address.cityName}}
+                  </div>
+                  <div class="row">
+                    <span><b>Postal Code: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.address.postalCode}}
+                  </div>
+                  <div class="row">
+                    <span><b>Country Code: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.address.countryCode}}
+                  </div>
+                  <div class="row" >
+                      <h2><b>Amenities </b> </h2>
+                      <span *ngFor="let amenity of fullOfferDto.hotelSecondLevelDto.hotel.amenities">
+                        {{amenity}}, 
+                      </span>
+                  </div>
+                  <div class="row" >
+                    <span><b>Chain Code: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.chainCode}}
+                  </div>
+                  <div class="row" >
+                      <span><b>City Code: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.cityCode}}
+                  </div>
+                      <div class="row" >
+                          <b>Contact </b>
+                      </div>
+                      <div class="row" >
+                          <span><b>Phone: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.contact.phone}}
+                      </div>
+                      <div class="row" >
+                          <span><b>Fax: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.contact.fax}}
+                      </div>
+                  <div *ngIf="fullOfferDto.hotelSecondLevelDto.hotel.description" class="row" >
+                      <b>Description </b>
+                        <br>
+                          <span><b>Lang: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.description.lang}}
+                          <br>
+                          <span><b>Text: </b> </span>{{fullOfferDto.hotelSecondLevelDto.hotel.description.text}}
+                  </div>
+                </div>
+                <div *ngFor="let offer of fullOfferDto.hotelSecondLevelDto.offers">
+                  <div class="row" style="margin-right:15px;">
+                    <span>Guests: </span>Adults: {{offer.guests.adults}}
+                  </div>
+                  <div style="margin-right:15px;">
+                      <div class="row" >
+                          <span><b>Currency: </b> </span>{{offer.price.currency}}
+                      </div>
+                      <div class="row" >
+                          <span><b>Total: </b> </span>{{offer.price.total}}
+                      </div>
+                  </div>
+                  <div class="row" style="margin-right:15px;">
+                      <span>Room: </span>
+                    </div>
+                    <div  style="margin-right:15px;">
+                        <div class="row" >
+                            <span><b>Description: </b> </span>{{offer.room.description.text}}
+                        </div>
+                        <div class="row" >
+                            <span><b>Type: </b> </span>{{offer.room.type}}
+                        </div>
+                            <div class="row" >
+                                <span><b>Type Estimated: </b> </span>
+                            </div>
+                                <div class="row" >
+                                  <span><b>Bed Type: </b> </span>{{offer.room.typeEstimated.bedType}}
+                                </div>
+                                <div class="row" >
+                                  <span><b>Beds: </b> </span>{{offer.room.typeEstimated.beds}}
+                                </div>
+                                <div class="row" >
+                                  <span><b>Category: </b> </span>{{offer.room.typeEstimated.category}}
+                                </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      

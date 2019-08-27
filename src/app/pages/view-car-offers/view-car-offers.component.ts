@@ -1,3 +1,4 @@
+import { CityNameService } from './../../services/city-name.service';
 import { AuthService } from './../../services/auth.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 import { FlightService } from './../../services/flight.service';
@@ -19,13 +20,13 @@ export class ViewCarOffersComponent implements OnInit {
   carOfferSearchDto; 
   cityNames
 
-  constructor(private carOfferService:CarOfferService, private flightService:FlightService,
+  constructor(private carOfferService:CarOfferService, private cityNameService:CityNameService,
     private authService:AuthService) { }
 
   ngOnInit() {
-    this.flightService.getAllCityNames().subscribe(response => {
+    this.cityNameService.getAllCityNames().subscribe(response => {
       this.cityNames = response.body;
-      this.cityNames = this.cityNames.map(c => c.cityName);
+      this.cityNames = this.cityNames.map(c => c.cityName).filter( name => name!='Random destination');;
     });
   }
   markDisabledEndDate = (date: NgbDate, current: {month: number}) => {

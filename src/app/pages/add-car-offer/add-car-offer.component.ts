@@ -1,3 +1,4 @@
+import { CityNameService } from './../../services/city-name.service';
 import { CarOfferService } from './../../services/car-offer.service';
 import { CurrencyService } from './../../services/currency.service';
 import { FlightService } from './../../services/flight.service';
@@ -17,12 +18,12 @@ export class AddCarOfferComponent implements OnInit {
   carOffer:CarOfferDto;
   selectedCity;
   currencies;
-  constructor(private flightService:FlightService, private currencyService:CurrencyService, private carOfferService:CarOfferService) { }
+  constructor(private cityNameService:CityNameService, private currencyService:CurrencyService, private carOfferService:CarOfferService) { }
 
   ngOnInit() {
     this.carOffer = new CarOfferDto();
     this.carOffer.car = new CarDto();
-    this.flightService.getAllCityNames().subscribe(response => {
+    this.cityNameService.getAllCityNames().subscribe(response => {
       this.cityNames = response.body;
       this.cityNames = this.cityNames.map(c => c.cityName);
     });

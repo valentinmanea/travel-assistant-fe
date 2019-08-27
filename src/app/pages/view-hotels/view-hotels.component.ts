@@ -1,3 +1,4 @@
+import { CityNameService } from './../../services/city-name.service';
 import { HotelSecondLevelDto } from './../../model/hotel/HotelSecondLevelDto';
 import { HotelOffer } from '../../model/hotel/HotelOffer';
 import { AuthService } from './../../services/auth.service';
@@ -17,11 +18,17 @@ export class ViewHotelsComponent implements OnInit {
   cityName:string;
   hotelFirstLevelDto:HotelFirstLevelDto;
   showOffers:boolean[] = [];
+  cityNames;
   rating = [];
   // hotels:HotelDto[] =[];
-  constructor(private authService:AuthService, private hotelService:HotelService, private amadeusHotelService:AmadeusHotelService) { }
+  constructor(private authService:AuthService, private hotelService:HotelService, private amadeusHotelService:AmadeusHotelService,
+    private cityNameService:CityNameService) { }
 
  async ngOnInit() {
+  this.cityNameService.getAllCityNames().subscribe(response => {
+    this.cityNames = response.body;
+    this.cityNames = this.cityNames.map(c => c.cityName).filter( name => name!='Random destination');;
+  });
   this.message = "Random data loading";
   this.hotelFirstLevelDto = undefined;
    await this.amadeusHotelService.getRandomHotelsIn3Cities().subscribe(response=>{
@@ -76,19 +83,8 @@ export class ViewHotelsComponent implements OnInit {
   searchButtonDisabled(){
     return this.cityName == undefined || this.cityName == '';
   }
-  // deleteHotel(index:number){
-  //   this.hotelService.deleteById(this.hotels[index].id).subscribe(response => {
-  //     toastr.success('Hotelul' + this.hotels[index].name + 'a fost sters cu succes');
-  //     this.hotels = this.hotels.filter(hotel => hotel.id != this.hotels[index].id);
-  //   });
-  // }
 
-  // getEditLink(index){
-  //   console.log('/admin/edit-hotel/' + this.hotels[index].id);
-  //   return ;
-  // }
-  // navigateEditPage(index){
-  //   console.log('/admin/edit-hotel/' + this.hotels[index].id);
-  //   this.router.navigate(['/admin/edit-hotel/' + this.hotels[index].id])
-  // }
+  getCityName(event){
+    this.cityName = event;
+  }
 }

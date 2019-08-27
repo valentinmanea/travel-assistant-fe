@@ -1,3 +1,4 @@
+import { CityNameService } from './../../services/city-name.service';
 import { FlightOfferService } from './../../services/flight-offer.service';
 import { FlightOffer } from './../../model/flight/FlightOffer';
 import { FirstLevelFlightDto } from './../../model/flight/FirstLevelFlightDto';
@@ -26,7 +27,8 @@ export class ViewFlightsComponent implements OnInit {
   startDate;
   endDate;
   adults;
-  constructor(private flightService:FlightService, private flightOfferService: FlightOfferService) { }
+  constructor(private cityNameService:CityNameService, private flightOfferService: FlightOfferService,
+    private flightService:FlightService) { }
 
   markDisabledEndDate = (date: NgbDate, current: {month: number}) => {
     let today = new Date();
@@ -61,12 +63,10 @@ export class ViewFlightsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flightService.getAllCityNames().subscribe(response => {
+    this.cityNameService.getAllCityNames().subscribe(response => {
       this.cityNames = response.body;
-      this.cityNames = this.cityNames.map(c => c.cityName);
+      this.cityNames = this.cityNames.map(c => c.cityName).filter( name => name!='Random destination');
     });
-    console.log('this.cityNames', this.cityNames)
-    this.cityNames = this.cityNames.map(c => c.cityName);
     console.log('this.cityNames', this.cityNames)
   }
   onSelectedDateChange(){
@@ -101,13 +101,12 @@ export class ViewFlightsComponent implements OnInit {
       this.loading = false;
       this.searchFinished = true;
     })
-
    
-    // this.startDate = undefined;
-    // this.endDate = undefined; 
-    // this.selectedCityNameStart = undefined;
-    // this.selectedCityNameEnd =  undefined;
-    // this.adults = undefined;
+    this.startDate = undefined;
+    this.endDate = undefined; 
+    this.selectedCityNameStart = undefined;
+    this.selectedCityNameEnd =  undefined;
+    this.adults = undefined;
   }
   buyOffer(index:number){
     let flightOffer:FlightOffer = new FlightOffer();

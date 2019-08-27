@@ -38,11 +38,5 @@ export class AuthService {
       });
 
   }
-  salut(){
-    let httpOptions = {
-      headers: new HttpHeaders({'Content-Type':'text/plain; charset=utf-8'}),
-      observe: 'response' as 'response'
-    };
-    return this.http.get(AppComponent.API_URL+"/auth/salut", httpOptions);
-  }
+ 
 }

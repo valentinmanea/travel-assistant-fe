@@ -1,3 +1,5 @@
+import { FullOfferService } from './services/full-offer.service';
+import { CityNameService } from './services/city-name.service';
 import { CarOfferService } from './services/car-offer.service';
 import { FlightOfferService } from './services/flight-offer.service';
 import { FlightService } from './services/flight.service';
@@ -39,6 +41,9 @@ import { AddCarOfferComponent } from './pages/add-car-offer/add-car-offer.compon
 import { CurrencyService } from './services/currency.service';
 import { ViewCarOffersComponent } from './pages/view-car-offers/view-car-offers.component';
 import { CarOfferHistoryComponent } from './pages/car-offer-history/car-offer-history.component';
+import { ImageService } from './services/image.service';
+import {SlideshowModule} from 'ng-simple-slideshow';
+import {Ng2CarouselamosModule } from 'ng2-carouselamos';
 
 @NgModule({
   declarations: [
@@ -63,15 +68,18 @@ import { CarOfferHistoryComponent } from './pages/car-offer-history/car-offer-hi
   ],
   imports: [
     BrowserModule,HttpClientModule,
+    Ng2CarouselamosModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
     HttpModule,
     FormsModule,
     routing, 
     FacebookModule.forRoot(),
+    
   ],
   providers: [AuthService,AccountService, HousingOfferService, HttpClientModule,AuthGuard,PreviousRouteService, HotelService,
-    AmadeusAuthService,AmadeusHotelService, FlightService, FlightOfferService, CurrencyService, CarOfferService,
+    AmadeusAuthService,AmadeusHotelService, FlightService, FlightOfferService, CurrencyService, CarOfferService, ImageService,
+    CityNameService, FullOfferService,
     {
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true 
     

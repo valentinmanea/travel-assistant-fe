@@ -7,6 +7,7 @@ import { FlightService } from './../../services/flight.service';
 import { HotelService } from './../../services/hotel.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 import { Component, OnInit } from '@angular/core';
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-view-flights',
@@ -113,6 +114,9 @@ export class ViewFlightsComponent implements OnInit {
     flightOffer.lastTicketingDate = this.firstLevelFlightDto.data[index].lastTicketingDate;
     flightOffer.price = this.firstLevelFlightDto.data[index].price.total + this.firstLevelFlightDto.data[index].price.currency;
     flightOffer.source = this.firstLevelFlightDto.data[index].source;
-    this.flightOfferService.buyOffer(flightOffer).subscribe(response => console.log(response));
+    if (index !== -1) {
+      this.firstLevelFlightDto.data = this.firstLevelFlightDto.data.filter(item => item !== this.firstLevelFlightDto.data[index]);
+    }  
+    this.flightOfferService.buyOffer(flightOffer).subscribe(response => toastr.success('Oferta a fost cumparata cu succes'));
   }
 }

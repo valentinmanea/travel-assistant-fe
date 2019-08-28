@@ -1,3 +1,8 @@
+import { FullOfferEntity } from './../../model/FullOfferEntity';
+import { HotelService } from './../../services/hotel.service';
+import { HotelOffer } from './../../model/hotel/HotelOffer';
+import { FlightOfferService } from './../../services/flight-offer.service';
+import { FlightOffer } from './../../model/flight/FlightOffer';
 import { FullOffer } from './../../model/FullOffer';
 import { FullOfferService } from './../../services/full-offer.service';
 import { CityNameService } from './../../services/city-name.service';
@@ -15,6 +20,8 @@ import { Route, Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  showHotelOffer;
+  showFlightOffer;
   fullOfferDto:FullOffer = new FullOffer();
   keyword;
   startCity;
@@ -24,7 +31,8 @@ export class HomeComponent implements OnInit {
   cityNames;
   noResults;
   messageSrc;
-  constructor(private imageService:ImageService, private cityNameService:CityNameService, private fullOfferService:FullOfferService) { 
+  constructor(private imageService:ImageService, private cityNameService:CityNameService,
+    private flightOfferService:FlightOfferService, private fullOfferService:FullOfferService, private hotelService:HotelService) { 
   }
 
   ngOnInit() {
@@ -74,7 +82,6 @@ export class HomeComponent implements OnInit {
       this.items.push("../../../assets/no-results.jpg");
     }else{
       this.items = [];
-
     }
   },
     err => {
@@ -85,4 +92,53 @@ export class HomeComponent implements OnInit {
     }
   )
  }
+  toggleHotelOffer(){
+    console.log('fullOfferDto.hotelSecondLevelDto', this.fullOfferDto.hotelSecondLevelDto)
+    console.log('toggle hotel offer', !this.showHotelOffer)
+    this.showHotelOffer = !this.showHotelOffer;
+ }
+ toggleFlightOffer(){
+  console.log('fullOfferDto.flightSecondLevelDto', this.fullOfferDto.flightSecondLevelDto)
+  console.log('toggle flight offer', !this.showFlightOffer)
+  this.showFlightOffer = !this.showFlightOffer;
+}
+buyFullOffer(){
+  let flightOffer = this.getFlightOffer();
+  let hotelOffer = this.getHotelOffer();
+  let fullOfferEntity = new FullOfferEntity();
+  fullOfferEntity.flightOffer = flightOffer;
+  fullOfferEntity.hotelOffer = hotelOffer;
+  console.log('fullOffer entity', fullOfferEntity)
+  this.fullOfferService.buyFullOffer(fullOfferEntity).subscribe(response => {
+    toastr.success("Oferta completa cumparata")
+    this.fullOfferDto.hotelSecondLevelDto = undefined;
+    this.fullOfferDto.flightSecondLevelDto = undefined;
+  });
+}
+getFlightOffer(){
+  let flightOffer:FlightOffer = new FlightOffer();
+  flightOffer.lastTicketingDate = this.fullOfferDto.flightSecondLevelDto.lastTicketingDate;
+  flightOffer.price = this.fullOfferDto.flightSecondLevelDto.price.total + this.fullOfferDto.flightSecondLevelDto.price.currency;
+  flightOffer.source = this.fullOfferDto.flightSecondLevelDto.source;
+  return flightOffer;
+}
+
+  getHotelOffer(){
+    let hotelOffer = new HotelOffer();
+    let hotelDto = this.fullOfferDto.hotelSecondLevelDto.hotel;
+    hotelOffer.name = hotelDto.name;
+    let hotelOfferFromHotel = this.fullOfferDto.hotelSecondLevelDto.offers.pop();
+    console.log(hotelOfferFromHotel)
+    if(hotelOfferFromHotel.guests){
+      hotelOffer.adults = hotelOfferFromHotel.guests.adults;
+    }   
+    if(hotelOfferFromHotel.price){
+      hotelOffer.currency = hotelOfferFromHotel.price.currency;
+      hotelOffer.total = hotelOfferFromHotel.price.total;
+    }
+    hotelOffer.hotelId = this.fullOfferDto.hotelSecondLevelDto.hotel.hotelId;
+    hotelOffer.rateCode = hotelOfferFromHotel.rateCode;
+
+    return hotelOffer;
+  }
 }

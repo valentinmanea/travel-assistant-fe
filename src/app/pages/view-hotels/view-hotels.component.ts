@@ -31,20 +31,6 @@ export class ViewHotelsComponent implements OnInit {
   });
   this.message = "Random data loading";
   this.hotelFirstLevelDto = undefined;
-   await this.amadeusHotelService.getRandomHotelsIn3Cities().subscribe(response=>{
-      this.hotelFirstLevelDto = response.body;
-      this.hotelFirstLevelDto.data.forEach(h => {
-        this.showOffers.push(false);
-        let rating:boolean[] =[];
-        for(var i = 0;i<h.hotel.rating;i++){
-          rating.push(true);
-        }
-        for(var idx = h.hotel.rating;idx<5;idx++){
-          rating.push(false)
-        }
-        this.rating.push(rating)
-      })
-    })
   } 
   toggle(index:number){
     this.showOffers[index] = !this.showOffers[index];

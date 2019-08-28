@@ -35,8 +35,13 @@
         <img src="{{item}}">
     </div>
 </div>
+<button class="btn btn-primary" *ngIf="fullOfferDto.hotelSecondLevelDto && !showHotelOffer" (click)="toggleHotelOffer()">Show hotel offer</button>
+<button class="btn btn-danger" *ngIf="fullOfferDto.hotelSecondLevelDto && showHotelOffer" (click)="toggleHotelOffer()">Hide hotel offer</button>
+<button class="btn btn-primary" *ngIf="fullOfferDto.flightSecondLevelDto && !showFlightOffer" (click)="toggleFlightOffer()">Show flight offer</button>
+<button class="btn btn-danger" *ngIf="fullOfferDto.flightSecondLevelDto && showFlightOffer" (click)="toggleFlightOffer()">Hide flight offer</button>
+<button class="btn btn-success" *ngIf="fullOfferDto.flightSecondLevelDto && fullOfferDto.hotelSecondLevelDto" (click) = "buyFullOffer()">Buy Full Offer</button>
 
-<div *ngIf="fullOfferDto.hotelSecondLevelDto" class="container">
+<div *ngIf="fullOfferDto.hotelSecondLevelDto && showHotelOffer" class="container">
   <div class="card card-container hotel" style="background-color: rgb(231, 231, 231);">
             <div style="margin-left:10%">
               <div class="row">
@@ -141,3 +146,40 @@
           </div>
         </div>
       
+
+
+  <!-- flights -->
+  
+
+<div *ngIf="fullOfferDto.flightSecondLevelDto && showFlightOffer" class="container" style="margin-left: 15%">
+  <div class="card card-container" style="margin-top: 100px;background-color: rgb(231, 231, 231); width: 90%;margin-left:5%">
+    <div class="panel-body" style="color:white;background-color: rgb(22, 19, 19);">
+        <div class="col-md-12 flight">
+            <span class="row"><b>Offer Type: </b> </span>{{fullOfferDto.flightSecondLevelDto.type}}
+            <span class="row"><b>Instant Ticketing Required: </b> </span>{{fullOfferDto.flightSecondLevelDto.instantTicketingRequired}}
+            <span class="row"><b>Last Ticketing Date: </b> </span>{{fullOfferDto.flightSecondLevelDto.lastTicketingDate}}
+            <span class="row"><b>Non Homogeneous Type: </b> </span>{{fullOfferDto.flightSecondLevelDto.nonHomogeneous}}
+            <span class="row"><b>NumberOfBookableSeats: </b> </span>{{fullOfferDto.flightSecondLevelDto.numberOfBookableSeats}}
+            <span class="row"><b>Price: </b> </span>{{fullOfferDto.flightSecondLevelDto.price.total}} {{fullOfferDto.flightSecondLevelDto.price.currency}}
+            <span class="row"><b>Source: </b> </span>{{fullOfferDto.flightSecondLevelDto.source}}
+            <div *ngFor="let travelerPricing of fullOfferDto.flightSecondLevelDto.travelerPricings">
+                <h1>Traveler Pricings</h1>
+                <span class="row"><b>Fare Option: </b> </span>{{travelerPricing.fareOption}}
+                <span class="row"><b>Price: </b> </span>{{travelerPricing.price.total}} {{travelerPricing.price.currency}}
+                <span class="row"><b>Traveler Id: </b> </span>{{travelerPricing.travelerId}}
+                <span class="row"><b>Traveler Type: </b> </span>{{travelerPricing.travelerType}}
+                <div *ngFor="let fareDetail of travelerPricing.fareDetailsBySegment">
+                  <h2>Fare details by Segment</h2>
+                    <span class="row"><b>Cabin: </b> </span>{{fareDetail.cabin}}
+                    <span class="row"><b>Class: </b> </span>{{fareDetail.class}}
+                    <span class="row"><b>Fare Basis: </b> </span>{{fareDetail.fareBasis}}
+                    <span class="row"><b>Cabin: </b> </span>{{fareDetail.cabin}}
+                    <span class="row"><b>Segment id: </b> </span>{{fareDetail.segmentId}}
+                  <hr>
+                  </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -12,4 +12,7 @@ export class FullOfferService {
     return this.http.get<any>(this.endpoint +"?destinationCity=" + destinationCity +"&startCity=" + startCity, { observe: 'response' });
   }
 
+  buyFullOffer(fullOfferEntity){
+  return this.http.post<any>(this.endpoint + '/buy', fullOfferEntity, { observe: 'response' });
+ }
 }
